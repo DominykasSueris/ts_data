@@ -1,14 +1,10 @@
-import axios from "axios";
-import Comment from "../utils/comment";
-
 class CommentService {
-  http = axios.create({
-    baseURL: "https://jsonplaceholder.typicode.com/"
-  });
-
-  async getComments() {
-    const response = await this.http.get<Comment[]>("/comments");
-    return response.data.slice(0, 5);
+  async getComments(): Promise<any> {
+    const response = await fetch("https://jsonplaceholder.typicode.com/comments");
+    return await response.json().then(response => {
+      const commentData = response.slice(0, 5);
+      return commentData;
+    });
   }
 }
 
